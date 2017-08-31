@@ -1,0 +1,3 @@
+rootProject.name = 'RNSpriteSheet'
+
+include ':app'
