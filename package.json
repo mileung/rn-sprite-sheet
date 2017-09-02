@@ -1,7 +1,7 @@
 {
 	"name": "rn-sprite-sheet",
-	"version": "0.0.1",
-	"private": true,
+	"version": "1.0.0",
+	"private": false,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest",
@@ -9,8 +9,8 @@
 		"android": "react-native run-android"
 	},
 	"dependencies": {
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.47.2"
+		"react": "^16.0.0-alpha.12",
+		"react-native": "^0.47.2"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
