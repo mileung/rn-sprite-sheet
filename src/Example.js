@@ -13,7 +13,7 @@ export default class Example extends React.Component {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <SpriteSheet
           ref={ref => this.mummy = ref}
-          source={require('./assets/mummy.png')}
+          source={require('./assets/bigMummy.png')}
           columns={5}
           rows={4}
           // height={100}
@@ -26,11 +26,19 @@ export default class Example extends React.Component {
           onPress={this.walk}
           title="walk"
         />
+        <Button
+          onPress={this.stop}
+          title="stop"
+        />
       </View>
     );
   }
 
   walk = () => {
-    this.mummy.play('walk', 30)
+    this.mummy.play('walk', 20, () => console.log('walk animation complete'))
+  }
+
+  stop = () => {
+    this.mummy.stop(() => console.log('stopped'));
   }
 }

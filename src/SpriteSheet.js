@@ -98,6 +98,10 @@ export default class SpriteSheet extends React.Component {
     );
   }
 
+  stop = cb => {
+    this.time.stopAnimation(cb);
+  }
+
   play = (type, fps, onFinish = () => {}) => {
     let { animations } = this.props;
     let { length } = animations[type];
@@ -115,10 +119,8 @@ export default class SpriteSheet extends React.Component {
 
     topInputRange.pop();
     topOutputRange.pop();
-    console.log('LEFTOUTPUTRANGE', leftOutputRange)
     leftInputRange.pop();
     leftOutputRange.pop();
-    console.log('LEFTOUTPUTRANGE', leftOutputRange)
 
     this.setState({
       topInputRange,
@@ -126,12 +128,14 @@ export default class SpriteSheet extends React.Component {
       leftInputRange,
       leftOutputRange
     }, () => {
+      Animated.loop();
       Animated.timing(this.time, {
         toValue: length - 1,
         duration: length / fps * 1000,
         easing: Easing.linear
       }).start(() => {
         this.time.setValue(0);
+
         onFinish();
       });
     })
