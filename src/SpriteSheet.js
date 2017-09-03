@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Image,
   Animated,
   Easing
 } from 'react-native';
@@ -47,14 +46,32 @@ export default class SpriteSheet extends React.Component {
 
   componentWillMount() {
     let { source, height, width, rows, columns } = this.props;
-
     let image = resolveAssetSource(source);
+    let ratio = 1;
+    let imageHeight = image.height;
+    let imageWidth = image.width;
+    let frameHeight = image.height / rows;
+    let frameWidth = image.width / columns;
+
+    if (width) {
+      ratio = (width * columns) / image.width;
+      imageHeight = image.height * ratio;
+      imageWidth = width * columns;
+      frameHeight = (image.height / rows) * ratio;
+      frameWidth = width;
+    } else if (height) {
+      ratio = (height * rows) / image.height;
+      imageHeight = height * rows;
+      imageWidth = image.width * ratio;
+      frameHeight = height;
+      frameWidth = (image.width / columns) * ratio;
+    }
 
     this.setState({
-      imageHeight: height ? height * rows : image.height,
-      imageWidth: width ? width * columns : image.width,
-      frameHeight: height || image.height / rows,
-      frameWidth: width || image.width / columns
+      imageHeight,
+      imageWidth,
+      frameHeight,
+      frameWidth
     }, this.generateInterpolationRanges);
   }
 
