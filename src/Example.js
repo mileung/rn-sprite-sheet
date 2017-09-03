@@ -23,10 +23,10 @@ export default class Example extends React.Component {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <SpriteSheet
             ref={ref => this.mummy = ref}
-            source={require('./assets/MetalSlug.png')}
+            source={require('./assets/mummy.png')}
             columns={9}
             rows={6}
-            // height={400} // set either, none, but not both
+            // height={200} // set either, none, but not both
             // width={200}
             imageStyle={{ marginTop: -1 }}
             animations={{

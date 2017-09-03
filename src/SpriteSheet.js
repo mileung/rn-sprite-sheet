@@ -15,19 +15,18 @@ const stylePropType = PropTypes.oneOfType([
 
 export default class SpriteSheet extends React.PureComponent {
   static propTypes = {
-    source: PropTypes.number.isRequired,
-    viewStyle: stylePropType,
-    imageStyle: stylePropType,
-    columns: PropTypes.number,
-    rows: PropTypes.number,
-    animations: PropTypes.object
+    source: PropTypes.number.isRequired, // source must be required; { uri } will not work
+    columns: PropTypes.number.isRequired,
+    rows: PropTypes.number.isRequired,
+    animations: PropTypes.object.isRequired, // see example
+    viewStyle: stylePropType, // styles for the sprite sheet container
+    imageStyle: stylePropType // styles for the sprite sheet
   }
 
   static defaultPropTypes = {
     columns: 1,
     rows: 1,
-    animations: {},
-    interpolationRanges: {}
+    animations: {}
   }
 
   state = {
