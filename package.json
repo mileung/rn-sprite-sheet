@@ -1,24 +1,46 @@
 {
-	"name": "rn-sprite-sheet",
-	"version": "1.0.0",
-	"private": false,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest",
-		"ios": "react-native run-ios",
-		"android": "react-native run-android"
-	},
-	"dependencies": {
-		"react": "^16.0.0-alpha.12",
-		"react-native": "^0.47.2"
-	},
-	"devDependencies": {
-		"babel-jest": "20.0.3",
-		"babel-preset-react-native": "3.0.2",
-		"jest": "20.0.4",
-		"react-test-renderer": "16.0.0-alpha.12"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "rn-sprite-sheet",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android"
+  },
+  "dependencies": {
+    "react": "^16.0.0-alpha.12",
+    "react-native": "^0.47.2"
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "3.0.2",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "description": "A sprite sheet animation library for React Native",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiLeung/rn-sprite-sheet.git"
+  },
+  "keywords": [
+    "sprite",
+    "sheet",
+    "spritesheet",
+    "phaser",
+    "game",
+    "react",
+    "native",
+    "animation"
+  ],
+  "author": "MiLeung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiLeung/rn-sprite-sheet/issues"
+  },
+  "homepage": "https://github.com/MiLeung/rn-sprite-sheet#readme"
 }

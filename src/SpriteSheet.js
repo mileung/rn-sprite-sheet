@@ -7,17 +7,17 @@ import {
 import resolveAssetSource from 'resolveAssetSource';
 import PropTypes from 'prop-types';
 
-const stylePropTypes = PropTypes.oneOfType([
+const stylePropType = PropTypes.oneOfType([
   PropTypes.number,
   PropTypes.object,
   PropTypes.array,
 ]);
 
-export default class SpriteSheet extends React.Component {
+export default class SpriteSheet extends React.PureComponent {
   static propTypes = {
     source: PropTypes.number.isRequired,
-    viewStyle: stylePropTypes,
-    imageStyle: stylePropTypes,
+    viewStyle: stylePropType,
+    imageStyle: stylePropType,
     columns: PropTypes.number,
     rows: PropTypes.number,
     animations: PropTypes.object
@@ -91,7 +91,7 @@ export default class SpriteSheet extends React.Component {
     return (
       <View
         style={[
-          viewStyle, {
+          viewStyle,{
           height: frameHeight,
           width: frameWidth,
           overflow: 'hidden'
@@ -146,7 +146,7 @@ export default class SpriteSheet extends React.Component {
     this.time.stopAnimation(cb);
   }
 
-  play = (type, fps = 24, loop = false, onFinish = () => {}) => {
+  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
     let { animations } = this.props;
     let { length } = animations[type];
 
@@ -157,11 +157,15 @@ export default class SpriteSheet extends React.Component {
         easing: Easing.linear
       });
 
+      this.time.setValue(0);
+
       if (loop) {
         Animated.loop(animation).start();
       } else {
         animation.start(() => {
-          this.time.setValue(0);
+          if (resetAfterFinish) {
+            this.time.setValue(0);
+          }
           onFinish();
         });
       }
