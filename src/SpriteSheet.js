@@ -65,10 +65,6 @@ export default class SpriteSheet extends React.Component {
       imageWidth,
       frameHeight,
       frameWidth,
-      // topInputRange,
-      // topOutputRange,
-      // leftInputRange,
-      // leftOutputRange,
       animationType
     } = this.state;
     let { viewStyle, imageStyle, rows, columns, height, width, source } = this.props;
@@ -81,7 +77,7 @@ export default class SpriteSheet extends React.Component {
           viewStyle, {
           height: frameHeight,
           width: frameWidth,
-          // overflow: 'hidden'
+          overflow: 'hidden'
         }]}>
         <Animated.Image
           source={source}
@@ -90,12 +86,12 @@ export default class SpriteSheet extends React.Component {
             height: imageHeight,
             width: imageWidth,
             top: this.time.interpolate({
-              inputRange: top.in, // topInputRange,
-              outputRange: top.out, // topOutputRange
+              inputRange: top.in,
+              outputRange: top.out
             }),
             left: this.time.interpolate({
-              inputRange: left.in, // leftInputRange,
-              outputRange: left.out, // leftOutputRange
+              inputRange: left.in,
+              outputRange: left.out
             })
           }]}
         />
@@ -109,7 +105,6 @@ export default class SpriteSheet extends React.Component {
     for (let key in animations) {
       let { length } = animations[key];
       let input = [].concat(...Array.from(Array(length).keys()).map(i => [i, i + 0.99999999999]));
-      input.pop();
 
       this.interpolationRanges[key] = {
         top: {
@@ -117,14 +112,14 @@ export default class SpriteSheet extends React.Component {
           out: [].concat(...animations[key].map(i => {
             let { y } = this.getFrameCoords(i);
             return [y, y];
-          })).slice(0, length * 2 - 1)
+          }))
         },
         left: {
           in: input,
           out: [].concat(...animations[key].map(i => {
             let { x } = this.getFrameCoords(i);
             return [x, x];
-          })).slice(0, length * 2 - 1)
+          }))
         }
       };
     }
@@ -134,43 +129,25 @@ export default class SpriteSheet extends React.Component {
     this.time.stopAnimation(cb);
   }
 
-  play = (type, fps, onFinish = () => {}) => {
+  play = (type, fps = 24, loop = false, onFinish = () => {}) => {
     let { animations } = this.props;
     let { length } = animations[type];
-    //
-    // let topInputRange = [].concat(...Array.from(Array(length).keys()).map(i => [i, i + 0.99999999999]));
-    // let topOutputRange = [].concat(...animations[type].map(i => {
-    //   let { y } = this.getFrameCoords(i);
-    //   return [y, y];
-    // }));
-    // let leftInputRange = [].concat(...Array.from(Array(length).keys()).map(i => [i, i + 0.99999999999]));
-    // let leftOutputRange = [].concat(...animations[type].map(i => {
-    //   let { x } = this.getFrameCoords(i);
-    //   return [x, x];
-    // }));
-    //
-    // topInputRange.pop();
-    // topOutputRange.pop();
-    // leftInputRange.pop();
-    // leftOutputRange.pop();
 
-    this.setState({
-      // topInputRange,
-      // topOutputRange,
-      // leftInputRange,
-      // leftOutputRange
-      animationType: type
-    }, () => {
-      // Animated.loop();
-      Animated.timing(this.time, {
-        toValue: length - 1,
+    this.setState({ animationType: type }, () => {
+      let animation = Animated.timing(this.time, {
+        toValue: length,
         duration: length / fps * 1000,
         easing: Easing.linear
-      }).start(() => {
-        this.time.setValue(0);
-
-        onFinish();
       });
+
+      if (loop) {
+        Animated.loop(animation).start();
+      } else {
+        animation.start(() => {
+          this.time.setValue(0);
+          onFinish();
+        });
+      }
     })
   }
 
