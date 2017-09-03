@@ -2,7 +2,7 @@
 
 A sprite sheet animation library for React Native
 
-![demo](https://media.giphy.com/media/3ov9jYVwbaKQ5IcLHq/giphy.gif)
+![demo](https://media.giphy.com/media/26vIfP6J2XiAl1VCw/giphy.gif)
 
 ### Install
 
