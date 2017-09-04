@@ -4,7 +4,7 @@ import {
   Animated,
   Easing
 } from 'react-native';
-import resolveAssetSource from 'resolveAssetSource';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 import PropTypes from 'prop-types';
 
 const stylePropType = PropTypes.oneOfType([

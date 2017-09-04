@@ -8,7 +8,7 @@ import {
   Switch,
   Text
 } from 'react-native';
-import SpriteSheet from './SpriteSheet';
+import SpriteSheet from 'rn-sprite-sheet';
 
 export default class Example extends React.Component {
   state = {
