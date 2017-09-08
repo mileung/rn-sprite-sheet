@@ -1,4 +1,4 @@
-# done-bar
+# rn-sprite-sheet
 
 A sprite sheet animation library for React Native
 
