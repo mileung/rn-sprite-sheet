@@ -343,7 +343,7 @@ babel-helpers@^6.24.1:
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
 
-babel-jest@20.0.3, babel-jest@^20.0.3:
+babel-jest@^20.0.3:
   version "20.0.3"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-20.0.3.tgz#e4a03b13dc10389e140fc645d09ffc4ced301671"
   dependencies:
@@ -394,10 +394,6 @@ babel-plugin-syntax-async-functions@^6.5.0, babel-plugin-syntax-async-functions@
 babel-plugin-syntax-class-properties@^6.5.0, babel-plugin-syntax-class-properties@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
-
-babel-plugin-syntax-dynamic-import@^6.18.0:
-  version "6.18.0"
-  resolved "https://registry.yarnpkg.com/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
 
 babel-plugin-syntax-flow@^6.18.0, babel-plugin-syntax-flow@^6.5.0, babel-plugin-syntax-flow@^6.8.0:
   version "6.18.0"
@@ -719,43 +715,7 @@ babel-preset-jest@^20.0.3:
   dependencies:
     babel-plugin-jest-hoist "^20.0.3"
 
-babel-preset-react-native@3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-3.0.2.tgz#f9a391540caebbd5014391ac1447ef6d8c0a5b57"
-  dependencies:
-    babel-plugin-check-es2015-constants "^6.5.0"
-    babel-plugin-react-transform "2.0.2"
-    babel-plugin-syntax-async-functions "^6.5.0"
-    babel-plugin-syntax-class-properties "^6.5.0"
-    babel-plugin-syntax-dynamic-import "^6.18.0"
-    babel-plugin-syntax-flow "^6.5.0"
-    babel-plugin-syntax-jsx "^6.5.0"
-    babel-plugin-syntax-trailing-function-commas "^6.5.0"
-    babel-plugin-transform-class-properties "^6.5.0"
-    babel-plugin-transform-es2015-arrow-functions "^6.5.0"
-    babel-plugin-transform-es2015-block-scoping "^6.5.0"
-    babel-plugin-transform-es2015-classes "^6.5.0"
-    babel-plugin-transform-es2015-computed-properties "^6.5.0"
-    babel-plugin-transform-es2015-destructuring "^6.5.0"
-    babel-plugin-transform-es2015-for-of "^6.5.0"
-    babel-plugin-transform-es2015-function-name "^6.5.0"
-    babel-plugin-transform-es2015-literals "^6.5.0"
-    babel-plugin-transform-es2015-modules-commonjs "^6.5.0"
-    babel-plugin-transform-es2015-parameters "^6.5.0"
-    babel-plugin-transform-es2015-shorthand-properties "^6.5.0"
-    babel-plugin-transform-es2015-spread "^6.5.0"
-    babel-plugin-transform-es2015-template-literals "^6.5.0"
-    babel-plugin-transform-flow-strip-types "^6.5.0"
-    babel-plugin-transform-object-assign "^6.5.0"
-    babel-plugin-transform-object-rest-spread "^6.5.0"
-    babel-plugin-transform-react-display-name "^6.5.0"
-    babel-plugin-transform-react-jsx "^6.5.0"
-    babel-plugin-transform-react-jsx-source "^6.5.0"
-    babel-plugin-transform-regenerator "^6.5.0"
-    babel-template "^6.24.1"
-    react-transform-hmr "^1.0.4"
-
-babel-preset-react-native@^1.9.1:
+babel-preset-react-native@^1.9.1, babel-preset-react-native@^1.9.2:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/babel-preset-react-native/-/babel-preset-react-native-1.9.2.tgz#b22addd2e355ff3b39671b79be807e52dfa145f2"
   dependencies:
@@ -2363,7 +2323,7 @@ jest-validate@^20.0.3:
     leven "^2.1.0"
     pretty-format "^20.0.3"
 
-jest@20.0.4:
+jest@^20.0.4:
   version "20.0.4"
   resolved "https://registry.yarnpkg.com/jest/-/jest-20.0.4.tgz#3dd260c2989d6dad678b1e9cc4d91944f6d602ac"
   dependencies:
@@ -3240,7 +3200,7 @@ react-devtools-core@2.3.1:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native@0.47.2:
+react-native@^0.47.1:
   version "0.47.2"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.47.2.tgz#5e55cd84e4947123c86d36ea6f95ab9ed2d0cb19"
   dependencies:
@@ -3334,9 +3294,9 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
-react-test-renderer@16.0.0-alpha.12:
-  version "16.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.0.0-alpha.12.tgz#9e4cc5d8ce8bfca72778340de3e1454b9d6c0cc5"
+react-test-renderer@>=16.0.0-alpha.12:
+  version "16.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.0.0-rc.2.tgz#8430a2c0a65555c1d3f62df182372f56abc71ec3"
   dependencies:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
@@ -3352,11 +3312,10 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@16.0.0-alpha.12:
-  version "16.0.0-alpha.12"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-alpha.12.tgz#8c59485281485df319b6f77682d8dd0621c08194"
+react@>=16.0.0-alpha.12:
+  version "16.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-rc.2.tgz#1e55cc18fd9c56260f1d0ccf9caca6d3152dc83c"
   dependencies:
-    create-react-class "^15.5.2"
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
