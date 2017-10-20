@@ -1,6 +1,6 @@
 {
   "name": "rn-sprite-sheet",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -8,19 +8,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android"
   },
-  "dependencies": {
-    "react": "^16.0.0",
-    "react-native": "^0.48.4"
-  },
-  "devDependencies": {
-    "babel-jest": "^21.2.0",
-    "babel-preset-react-native": "^4.0.0",
-    "jest": "^21.2.0",
-    "react-test-renderer": "^16.0.0"
-  },
-  "jest": {
-    "preset": "react-native"
-  },
+  "dependencies": {},
   "description": "A sprite sheet animation library for React Native",
   "main": "index.js",
   "repository": {
