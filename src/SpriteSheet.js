@@ -120,7 +120,7 @@ export default class SpriteSheet extends React.PureComponent {
 
     for (let key in animations) {
       let { length } = animations[key];
-      let input = [].concat(...Array.from({ length: length  }, (_, i) => [i, i + 0.99999999999]));
+      let input = [].concat(...Array.from({ length }, (_, i) => [i, i + 0.99999999999]));
 
       this.interpolationRanges[key] = {
         top: {
