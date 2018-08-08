@@ -14,7 +14,8 @@ export default class SpriteSheet extends React.PureComponent {
 		viewStyle: stylePropType, // styles for the sprite sheet container
 		imageStyle: stylePropType, // styles for the sprite sheet
 		height: PropTypes.number, // set either height, width, or none,
-		width: PropTypes.number // but not both height and width
+		width: PropTypes.number, // but not both height and width
+		onLoad: PropTypes.func
 	};
 
 	static defaultPropTypes = {
@@ -73,7 +74,7 @@ export default class SpriteSheet extends React.PureComponent {
 
 	render() {
 		let { imageHeight, imageWidth, frameHeight, frameWidth, animationType } = this.state;
-		let { viewStyle, imageStyle, rows, columns, height, width, source } = this.props;
+		let { viewStyle, imageStyle, rows, columns, height, width, source, onLoad } = this.props;
 
 		let { top = { in: [0, 0], out: [0, 0] }, left = { in: [0, 0], out: [0, 0] } } =
 			this.interpolationRanges[animationType] || {};
@@ -90,6 +91,7 @@ export default class SpriteSheet extends React.PureComponent {
 				]}>
 				<Animated.Image
 					source={source}
+					onLoad={onLoad}
 					style={[
 						imageStyle,
 						{

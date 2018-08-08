@@ -68,7 +68,8 @@ static propTypes = {
   viewStyle: stylePropType, // styles for the sprite sheet container
   imageStyle: stylePropType, // styles for the sprite sheet
   height: PropTypes.number, // set either height, width, or none,
-  width: PropTypes.number // but not both height and width
+  width: PropTypes.number, // but not both height and width
+  onLoad: PropTypes.func
 };
 
 static defaultPropTypes = {
