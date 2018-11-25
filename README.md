@@ -2,7 +2,7 @@
 
 A sprite sheet animation library for React Native
 
-![demo](https://media.giphy.com/media/26vIfP6J2XiAl1VCw/giphy.gif)
+![demo](https://media.giphy.com/media/xjyRCqzjQhyoartPCq/giphy.gif)
 
 ### Install
 
@@ -24,18 +24,18 @@ A sprite sheet animation library for React Native
 
 ```javascript
 <SpriteSheet
-	ref={ref => (this.mummy = ref)}
-	source={require('./assets/mummy.png')}
-	columns={9}
-	rows={6}
-	// height={200} // set either, none, but not both
-	// width={200}
-	imageStyle={{ marginTop: -1 }}
-	animations={{
-		walk: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
-		appear: Array.from({ length: 15 }, (v, i) => i + 18),
-		die: Array.from({ length: 21 }, (v, i) => i + 33)
-	}}
+  ref={ref => (this.mummy = ref)}
+  source={require('./assets/mummy.png')}
+  columns={9}
+  rows={6}
+  // height={200} // set either, none, but not both
+  // width={200}
+  imageStyle={{ marginTop: -1 }}
+  animations={{
+    walk: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+    appear: Array.from({ length: 15 }, (v, i) => i + 18),
+    die: Array.from({ length: 21 }, (v, i) => i + 33)
+  }}
 />;
 // ...
 play = config => this.mummy.play(config);

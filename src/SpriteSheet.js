@@ -6,181 +6,182 @@ import PropTypes from 'prop-types';
 const stylePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]);
 
 export default class SpriteSheet extends React.PureComponent {
-	static propTypes = {
-		source: PropTypes.number.isRequired, // source must be required; { uri } will not work
-		columns: PropTypes.number.isRequired,
-		rows: PropTypes.number.isRequired,
-		animations: PropTypes.object.isRequired, // see example
-		viewStyle: stylePropType, // styles for the sprite sheet container
-		imageStyle: stylePropType, // styles for the sprite sheet
-		height: PropTypes.number, // set either height, width, or none,
-		width: PropTypes.number, // but not both height and width
-		onLoad: PropTypes.func
-	};
+  static propTypes = {
+    source: PropTypes.number.isRequired, // source must be required; { uri } will not work
+    columns: PropTypes.number.isRequired,
+    rows: PropTypes.number.isRequired,
+    animations: PropTypes.object.isRequired, // see example
+    viewStyle: stylePropType, // styles for the sprite sheet container
+    imageStyle: stylePropType, // styles for the sprite sheet
+    height: PropTypes.number, // set either height, width, or neither
+    width: PropTypes.number, // do not set both height and width
+    onLoad: PropTypes.func
+  };
 
-	static defaultPropTypes = {
-		columns: 1,
-		rows: 1,
-		animations: {}
-	};
+  static defaultPropTypes = {
+    columns: 1,
+    rows: 1,
+    animations: {}
+  };
 
-	state = {
-		imageHeight: 0,
-		imageWidth: 0,
-		defaultFrameHeight: 0,
-		defaultFrameWidth: 0,
-		topInputRange: [0, 1],
-		topOutputRange: [0, 1],
-		leftInputRange: [0, 1],
-		leftOutputRange: [0, 1]
-	};
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageHeight: 0,
+      imageWidth: 0,
+      defaultFrameHeight: 0,
+      defaultFrameWidth: 0,
+      topInputRange: [0, 1],
+      topOutputRange: [0, 1],
+      leftInputRange: [0, 1],
+      leftOutputRange: [0, 1]
+    };
 
-	time = new Animated.Value(0);
-	interpolationRanges = {};
+    this.time = new Animated.Value(0);
+    this.interpolationRanges = {};
 
-	componentWillMount() {
-		let { source, height, width, rows, columns } = this.props;
-		let image = resolveAssetSource(source);
-		let ratio = 1;
-		let imageHeight = image.height;
-		let imageWidth = image.width;
-		let frameHeight = image.height / rows;
-		let frameWidth = image.width / columns;
+    let { source, height, width, rows, columns } = this.props;
+    let image = resolveAssetSource(source);
+    let ratio = 1;
+    let imageHeight = image.height;
+    let imageWidth = image.width;
+    let frameHeight = image.height / rows;
+    let frameWidth = image.width / columns;
 
-		if (width) {
-			ratio = (width * columns) / image.width;
-			imageHeight = image.height * ratio;
-			imageWidth = width * columns;
-			frameHeight = (image.height / rows) * ratio;
-			frameWidth = width;
-		} else if (height) {
-			ratio = (height * rows) / image.height;
-			imageHeight = height * rows;
-			imageWidth = image.width * ratio;
-			frameHeight = height;
-			frameWidth = (image.width / columns) * ratio;
-		}
+    if (width) {
+      ratio = (width * columns) / image.width;
+      imageHeight = image.height * ratio;
+      imageWidth = width * columns;
+      frameHeight = (image.height / rows) * ratio;
+      frameWidth = width;
+    } else if (height) {
+      ratio = (height * rows) / image.height;
+      imageHeight = height * rows;
+      imageWidth = image.width * ratio;
+      frameHeight = height;
+      frameWidth = (image.width / columns) * ratio;
+    }
 
-		this.setState(
-			{
-				imageHeight,
-				imageWidth,
-				frameHeight,
-				frameWidth
-			},
-			this.generateInterpolationRanges
-		);
-	}
+    Object.assign(this.state, {
+      imageHeight,
+      imageWidth,
+      frameHeight,
+      frameWidth
+    });
 
-	render() {
-		let { imageHeight, imageWidth, frameHeight, frameWidth, animationType } = this.state;
-		let { viewStyle, imageStyle, rows, columns, height, width, source, onLoad } = this.props;
+    this.generateInterpolationRanges();
+  }
 
-		let { top = { in: [0, 0], out: [0, 0] }, left = { in: [0, 0], out: [0, 0] } } =
-			this.interpolationRanges[animationType] || {};
+  render() {
+    let { imageHeight, imageWidth, frameHeight, frameWidth, animationType } = this.state;
+    let { viewStyle, imageStyle, rows, columns, height, width, source, onLoad } = this.props;
 
-		return (
-			<View
-				style={[
-					viewStyle,
-					{
-						height: frameHeight,
-						width: frameWidth,
-						overflow: 'hidden'
-					}
-				]}>
-				<Animated.Image
-					source={source}
-					onLoad={onLoad}
-					style={[
-						imageStyle,
-						{
-							height: imageHeight,
-							width: imageWidth,
-							top: this.time.interpolate({
-								inputRange: top.in,
-								outputRange: top.out
-							}),
-							left: this.time.interpolate({
-								inputRange: left.in,
-								outputRange: left.out
-							})
-						}
-					]}
-				/>
-			</View>
-		);
-	}
+    let { top = { in: [0, 0], out: [0, 0] }, left = { in: [0, 0], out: [0, 0] } } =
+      this.interpolationRanges[animationType] || {};
 
-	generateInterpolationRanges = () => {
-		let { animations } = this.props;
+    return (
+      <View
+        style={[
+          viewStyle,
+          {
+            height: frameHeight,
+            width: frameWidth,
+            overflow: 'hidden'
+          }
+        ]}
+      >
+        <Animated.Image
+          source={source}
+          onLoad={onLoad}
+          style={[
+            imageStyle,
+            {
+              height: imageHeight,
+              width: imageWidth,
+              top: this.time.interpolate({
+                inputRange: top.in,
+                outputRange: top.out
+              }),
+              left: this.time.interpolate({
+                inputRange: left.in,
+                outputRange: left.out
+              })
+            }
+          ]}
+        />
+      </View>
+    );
+  }
 
-		for (let key in animations) {
-			let { length } = animations[key];
-			let input = [].concat(...Array.from({ length }, (_, i) => [i, i + 0.99999999999]));
+  generateInterpolationRanges = () => {
+    let { animations } = this.props;
 
-			this.interpolationRanges[key] = {
-				top: {
-					in: input,
-					out: [].concat(
-						...animations[key].map(i => {
-							let { y } = this.getFrameCoords(i);
-							return [y, y];
-						})
-					)
-				},
-				left: {
-					in: input,
-					out: [].concat(
-						...animations[key].map(i => {
-							let { x } = this.getFrameCoords(i);
-							return [x, x];
-						})
-					)
-				}
-			};
-		}
-	};
+    for (let key in animations) {
+      let { length } = animations[key];
+      let input = [].concat(...Array.from({ length }, (_, i) => [i, i + 0.99999999999]));
 
-	stop = cb => {
-		this.time.stopAnimation(cb);
-	};
+      this.interpolationRanges[key] = {
+        top: {
+          in: input,
+          out: [].concat(
+            ...animations[key].map(i => {
+              let { y } = this.getFrameCoords(i);
+              return [y, y];
+            })
+          )
+        },
+        left: {
+          in: input,
+          out: [].concat(
+            ...animations[key].map(i => {
+              let { x } = this.getFrameCoords(i);
+              return [x, x];
+            })
+          )
+        }
+      };
+    }
+  };
 
-	play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
-		let { animations } = this.props;
-		let { length } = animations[type];
+  stop = cb => {
+    this.time.stopAnimation(cb);
+  };
 
-		this.setState({ animationType: type }, () => {
-			let animation = Animated.timing(this.time, {
-				toValue: length,
-				duration: (length / fps) * 1000,
-				easing: Easing.linear
-			});
+  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
+    let { animations } = this.props;
+    let { length } = animations[type];
 
-			this.time.setValue(0);
+    this.setState({ animationType: type }, () => {
+      let animation = Animated.timing(this.time, {
+        toValue: length,
+        duration: (length / fps) * 1000,
+        easing: Easing.linear
+      });
 
-			if (loop) {
-				Animated.loop(animation).start();
-			} else {
-				animation.start(() => {
-					if (resetAfterFinish) {
-						this.time.setValue(0);
-					}
-					onFinish();
-				});
-			}
-		});
-	};
+      this.time.setValue(0);
 
-	getFrameCoords = i => {
-		let { rows, columns } = this.props;
-		let { frameHeight, frameWidth } = this.state;
+      if (loop) {
+        Animated.loop(animation).start();
+      } else {
+        animation.start(() => {
+          if (resetAfterFinish) {
+            this.time.setValue(0);
+          }
+          onFinish();
+        });
+      }
+    });
+  };
 
-		let successionWidth = i * frameWidth;
+  getFrameCoords = i => {
+    let { rows, columns } = this.props;
+    let { frameHeight, frameWidth } = this.state;
 
-		return {
-			x: -successionWidth % (columns * frameWidth),
-			y: -Math.floor(successionWidth / (columns * frameWidth)) * frameHeight
-		};
-	};
+    let successionWidth = i * frameWidth;
+
+    return {
+      x: -successionWidth % (columns * frameWidth),
+      y: -Math.floor(successionWidth / (columns * frameWidth)) * frameHeight
+    };
+  };
 }
