@@ -31,10 +31,10 @@ export default class SpriteSheet extends React.PureComponent {
       imageWidth: 0,
       defaultFrameHeight: 0,
       defaultFrameWidth: 0,
-      topInputRange: [0, 1],
-      topOutputRange: [0, 1],
-      leftInputRange: [0, 1],
-      leftOutputRange: [0, 1]
+      translateYInputRange: [0, 1],
+      translateYOutputRange: [0, 1],
+      translateXInputRange: [0, 1],
+      translateXOutputRange: [0, 1]
     };
 
     this.time = new Animated.Value(0);
@@ -76,7 +76,7 @@ export default class SpriteSheet extends React.PureComponent {
     let { imageHeight, imageWidth, frameHeight, frameWidth, animationType } = this.state;
     let { viewStyle, imageStyle, rows, columns, height, width, source, onLoad } = this.props;
 
-    let { top = { in: [0, 0], out: [0, 0] }, left = { in: [0, 0], out: [0, 0] } } =
+    let { translateY = { in: [0, 0], out: [0, 0] }, translateX = { in: [0, 0], out: [0, 0] } } =
       this.interpolationRanges[animationType] || {};
 
     return (
@@ -102,14 +102,14 @@ export default class SpriteSheet extends React.PureComponent {
               transform: [
                 {
                   translateX: this.time.interpolate({
-                    inputRange: left.in,
-                    outputRange: left.out
+                    inputRange: translateX.in,
+                    outputRange: translateX.out
                   })
                 },
                 {
                   translateY: this.time.interpolate({
-                    inputRange: top.in,
-                    outputRange: top.out
+                    inputRange: translateY.in,
+                    outputRange: translateY.out
                   })
                 }
               ]
@@ -128,7 +128,7 @@ export default class SpriteSheet extends React.PureComponent {
       let input = [].concat(...Array.from({ length }, (_, i) => [i, i + 0.99999999999]));
 
       this.interpolationRanges[key] = {
-        top: {
+        translateY: {
           in: input,
           out: [].concat(
             ...animations[key].map(i => {
@@ -137,7 +137,7 @@ export default class SpriteSheet extends React.PureComponent {
             })
           )
         },
-        left: {
+        translateX: {
           in: input,
           out: [].concat(
             ...animations[key].map(i => {
@@ -154,7 +154,7 @@ export default class SpriteSheet extends React.PureComponent {
     this.time.stopAnimation(cb);
   };
 
-  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => { } }) => {
+  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
     let { animations } = this.props;
     let { length } = animations[type];
 
@@ -182,7 +182,7 @@ export default class SpriteSheet extends React.PureComponent {
   };
 
   getFrameCoords = i => {
-    let { rows, columns } = this.props;
+    let { columns } = this.props;
     let { frameHeight, frameWidth } = this.state;
 
     let successionWidth = i * frameWidth;
