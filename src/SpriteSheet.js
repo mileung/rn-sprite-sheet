@@ -98,14 +98,21 @@ export default class SpriteSheet extends React.PureComponent {
             {
               height: imageHeight,
               width: imageWidth,
-              top: this.time.interpolate({
-                inputRange: top.in,
-                outputRange: top.out
-              }),
-              left: this.time.interpolate({
-                inputRange: left.in,
-                outputRange: left.out
-              })
+              // Transform properties are GPU accelerated and supported by Native Driver
+              transform: [
+                {
+                  translateX: this.time.interpolate({
+                    inputRange: left.in,
+                    outputRange: left.out
+                  })
+                },
+                {
+                  translateY: this.time.interpolate({
+                    inputRange: top.in,
+                    outputRange: top.out
+                  })
+                }
+              ]
             }
           ]}
         />
@@ -147,7 +154,7 @@ export default class SpriteSheet extends React.PureComponent {
     this.time.stopAnimation(cb);
   };
 
-  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
+  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => { } }) => {
     let { animations } = this.props;
     let { length } = animations[type];
 
@@ -155,7 +162,8 @@ export default class SpriteSheet extends React.PureComponent {
       let animation = Animated.timing(this.time, {
         toValue: length,
         duration: (length / fps) * 1000,
-        easing: Easing.linear
+        easing: Easing.linear,
+        useNativeDriver: true // Using native animation driver instead of JS
       });
 
       this.time.setValue(0);
