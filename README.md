@@ -15,7 +15,7 @@ A sprite sheet animation library for React Native
 ### Usage
 
 1.  Create ref for SpriteSheet
-2.  Set the source (must be required; { uri } will not work)
+2.  Set the source using `require()` for local asset images or using `{ uri: <image's url>, width: <image's width>, height: <image's height> }` for network images
 3.  Specify the columns and rows (each frame must be the same size)
 4.  Create animations object (each key is an animation name and their value should be an array of frame indexes)
 5.  Play an animation by calling the play method on a SpriteSheet reference and pass it a config object with at least a type property
