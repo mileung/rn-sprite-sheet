@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Animated, Easing } from 'react-native';
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import { Animated, Easing, View } from 'react-native';
+
 import PropTypes from 'prop-types';
+import React from 'react';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 const stylePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]);
 
@@ -68,7 +69,7 @@ export default class SpriteSheet extends React.PureComponent {
       frameHeight,
       frameWidth
     });
-
+    
     this.generateInterpolationRanges();
   }
 
@@ -125,8 +126,7 @@ export default class SpriteSheet extends React.PureComponent {
 
     for (let key in animations) {
       let { length } = animations[key];
-      let input = [].concat(...Array.from({ length }, (_, i) => [i, i + 0.99999999999]));
-
+      let input = [].concat(...Array.from({ length }, (_, i) => [i, i + 1]));
       this.interpolationRanges[key] = {
         translateY: {
           in: input,
@@ -184,12 +184,13 @@ export default class SpriteSheet extends React.PureComponent {
   getFrameCoords = i => {
     let { columns } = this.props;
     let { frameHeight, frameWidth } = this.state;
-
-    let successionWidth = i * frameWidth;
+    let currentColumn = (i%columns)
+    let xAdjust = -currentColumn*frameWidth
+    let yAdjust = -((i-currentColumn)/columns)*frameHeight
 
     return {
-      x: -successionWidth % (columns * frameWidth),
-      y: -Math.floor(successionWidth / (columns * frameWidth)) * frameHeight
+      x: xAdjust,
+      y: yAdjust
     };
   };
 }
