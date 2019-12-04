@@ -1,10 +1,14 @@
-import { Animated, Easing, View } from 'react-native';
+import { Animated, Easing, View } from "react-native";
 
-import PropTypes from 'prop-types';
-import React from 'react';
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import PropTypes from "prop-types";
+import React from "react";
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
-const stylePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]);
+const stylePropType = PropTypes.oneOfType([
+  PropTypes.number,
+  PropTypes.object,
+  PropTypes.array
+]);
 
 export default class SpriteSheet extends React.PureComponent {
   static propTypes = {
@@ -69,16 +73,24 @@ export default class SpriteSheet extends React.PureComponent {
       frameHeight,
       frameWidth
     });
-    
+
     this.generateInterpolationRanges();
   }
 
   render() {
-    let { imageHeight, imageWidth, frameHeight, frameWidth, animationType } = this.state;
-    let { viewStyle, imageStyle, rows, columns, height, width, source, onLoad } = this.props;
+    let {
+      imageHeight,
+      imageWidth,
+      frameHeight,
+      frameWidth,
+      animationType
+    } = this.state;
+    let { viewStyle, imageStyle, source, onLoad } = this.props;
 
-    let { translateY = { in: [0, 0], out: [0, 0] }, translateX = { in: [0, 0], out: [0, 0] } } =
-      this.interpolationRanges[animationType] || {};
+    let {
+      translateY = { in: [0, 0], out: [0, 0] },
+      translateX = { in: [0, 0], out: [0, 0] }
+    } = this.interpolationRanges[animationType] || {};
 
     return (
       <View
@@ -87,7 +99,7 @@ export default class SpriteSheet extends React.PureComponent {
           {
             height: frameHeight,
             width: frameWidth,
-            overflow: 'hidden'
+            overflow: "hidden"
           }
         ]}
       >
@@ -154,7 +166,13 @@ export default class SpriteSheet extends React.PureComponent {
     this.time.stopAnimation(cb);
   };
 
-  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
+  play = ({
+    type,
+    fps = 24,
+    loop = false,
+    resetAfterFinish = false,
+    onFinish = () => {}
+  }) => {
     let { animations } = this.props;
     let { length } = animations[type];
 
@@ -184,9 +202,9 @@ export default class SpriteSheet extends React.PureComponent {
   getFrameCoords = i => {
     let { columns } = this.props;
     let { frameHeight, frameWidth } = this.state;
-    let currentColumn = (i%columns)
-    let xAdjust = -currentColumn*frameWidth
-    let yAdjust = -((i-currentColumn)/columns)*frameHeight
+    let currentColumn = i % columns;
+    let xAdjust = -currentColumn * frameWidth;
+    let yAdjust = -((i - currentColumn) / columns) * frameHeight;
 
     return {
       x: xAdjust,
