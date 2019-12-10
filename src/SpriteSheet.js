@@ -166,6 +166,11 @@ export default class SpriteSheet extends React.PureComponent {
     this.time.stopAnimation(cb);
   };
 
+  reset = () => {
+    this.time.stopAnimation();
+    this.time.setValue(0);
+  };
+
   play = ({
     type,
     fps = 24,
