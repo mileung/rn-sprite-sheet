@@ -54,7 +54,9 @@ play({
   onFinish = () => {} // called when the animation finishes; will not work when loop === true
 })
 
-stop(callback)
+stop(callback) // stop at current frame
+
+reset(callback) // stop and go to first frame
 ```
 
 ### Props

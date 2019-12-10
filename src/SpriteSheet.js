@@ -166,8 +166,8 @@ export default class SpriteSheet extends React.PureComponent {
     this.time.stopAnimation(cb);
   };
 
-  reset = () => {
-    this.time.stopAnimation();
+  reset = cb => {
+    this.time.stopAnimation(cb);
     this.time.setValue(0);
   };
 
