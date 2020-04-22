@@ -6,7 +6,7 @@ type AnimationConfig = {
 };
 
 export interface ISpriteSheetProps {
-  source: number; // source must be required; { uri } will not work
+  source: number | { uri: string; width: number; height: number };
   columns: number;
   rows: number;
   ref: MutableRefObject<SpriteSheet | null>;
