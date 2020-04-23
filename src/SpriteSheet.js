@@ -10,9 +10,14 @@ const stylePropType = PropTypes.oneOfType([
   PropTypes.array
 ]);
 
+const sourcePropType = PropTypes.oneOfType([
+  PropTypes.number,
+  PropTypes.object
+]);
+
 export default class SpriteSheet extends React.PureComponent {
   static propTypes = {
-    source: PropTypes.number.isRequired, // source must be required; { uri } will not work
+    source: sourcePropType.isRequired, // source must be required
     columns: PropTypes.number.isRequired,
     rows: PropTypes.number.isRequired,
     animations: PropTypes.object.isRequired, // see example
