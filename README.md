@@ -63,7 +63,7 @@ reset(callback) // stop and go to first frame
 
 ```javascript
 static propTypes = {
-  source: PropTypes.number.isRequired, // source must be required; { uri } will not work
+  source: sourcePropType.isRequired // source must be required
   columns: PropTypes.number.isRequired,
   rows: PropTypes.number.isRequired,
   animations: PropTypes.object.isRequired, // see example
