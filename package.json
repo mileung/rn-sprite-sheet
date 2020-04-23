@@ -1,6 +1,6 @@
 {
   "name": "rn-sprite-sheet",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "private": false,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
