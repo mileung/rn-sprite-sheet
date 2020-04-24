@@ -80,3 +80,7 @@ static defaultPropTypes = {
   animations: {}
 };
 ```
+
+### Sprite sheet image specifications 
+
+When generating a sprite sheet image to use with rn-sprite-sheet, ensure that the frames are all of the same dimensions, and that the overall image size is exactly the height of all rows and the width of all columns. Depending on the tool you use to generate your sprite sheet image, you may need to crop the source image.    
