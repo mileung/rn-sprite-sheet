@@ -102,8 +102,6 @@ export default class SpriteSheet extends React.PureComponent {
     let { viewStyle, imageStyle, source, onLoad } = this.props;
 
     let {
-      // translateY = { in: [0,0], out: [0,0] },
-      // translateX = { in: [0,0], out: [0,0] }
       translateY = { in: [0,0], out: [offsetY, offsetY] },
       translateX = { in: [0,0], out: [offsetX, offsetX] }
     } = this.interpolationRanges[animationType] || {};
