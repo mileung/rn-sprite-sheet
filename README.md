@@ -30,6 +30,11 @@ A sprite sheet animation library for React Native
   rows={6}
   // height={200} // set either, none, but not both
   // width={200}
+
+  // frameHeight={50} // manually set size of your sprite
+  // frameWidth={50} // overrides auto calculation of frame size based on height, width, columns, and rows.
+  // offsetX={0} 
+  // offsetY={0} 
   imageStyle={{ marginTop: -1 }}
   animations={{
     walk: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
@@ -71,7 +76,11 @@ static propTypes = {
   imageStyle: stylePropType, // styles for the sprite sheet
   height: PropTypes.number, // set either height, width, or none,
   width: PropTypes.number, // but not both height and width
-  onLoad: PropTypes.func
+  onLoad: PropTypes.func,
+  frameWidth: PropTypes.func, // overrides sprite size calculation based on height,width,rows,columns props
+  frameHeight: PropTypes.func, // both frameWidth and frameHeight must be set or neither
+  offsetX: PropTypes.func, // used with frameWidth/frameHeight to adjust offset of first frame
+  offsetY: PropTypes.func
 };
 
 static defaultPropTypes = {
