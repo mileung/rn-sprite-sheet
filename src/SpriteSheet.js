@@ -1,6 +1,4 @@
 import { Animated, Easing, View } from "react-native";
-import Svg,{Image}from 'react-native-svg';
-
 import PropTypes from "prop-types";
 import React from "react";
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
