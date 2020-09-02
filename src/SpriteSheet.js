@@ -1,5 +1,4 @@
 import { Animated, Easing, View } from "react-native";
-
 import PropTypes from "prop-types";
 import React from "react";
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
@@ -25,7 +24,9 @@ export default class SpriteSheet extends React.PureComponent {
     imageStyle: stylePropType, // styles for the sprite sheet
     height: PropTypes.number, // set either height, width, or neither
     width: PropTypes.number, // do not set both height and width
-    onLoad: PropTypes.func
+    onLoad: PropTypes.func,
+    frameWidth: PropTypes.number,
+    frameHeight: PropTypes.number,
   };
 
   static defaultPropTypes = {
@@ -50,13 +51,15 @@ export default class SpriteSheet extends React.PureComponent {
     this.time = new Animated.Value(0);
     this.interpolationRanges = {};
 
-    let { source, height, width, rows, columns } = this.props;
+    let { source, height, width, rows, columns, frameHeight, frameWidth, offsetY = 0, offsetX = 0 } = this.props;
     let image = resolveAssetSource(source);
     let ratio = 1;
     let imageHeight = image.height;
     let imageWidth = image.width;
-    let frameHeight = image.height / rows;
-    let frameWidth = image.width / columns;
+    offsetX = -offsetX;
+    offsetY = -offsetY;
+    frameHeight = frameHeight || image.height / rows;
+    frameWidth = frameWidth || image.width / columns;
 
     if (width) {
       ratio = (width * columns) / image.width;
@@ -76,7 +79,9 @@ export default class SpriteSheet extends React.PureComponent {
       imageHeight,
       imageWidth,
       frameHeight,
-      frameWidth
+      frameWidth,
+      offsetX,
+      offsetY
     });
 
     this.generateInterpolationRanges();
@@ -88,13 +93,15 @@ export default class SpriteSheet extends React.PureComponent {
       imageWidth,
       frameHeight,
       frameWidth,
-      animationType
+      animationType,
+      offsetX,
+      offsetY
     } = this.state;
     let { viewStyle, imageStyle, source, onLoad } = this.props;
 
     let {
-      translateY = { in: [0, 0], out: [0, 0] },
-      translateX = { in: [0, 0], out: [0, 0] }
+      translateY = { in: [0,0], out: [offsetY, offsetY] },
+      translateX = { in: [0,0], out: [offsetX, offsetX] }
     } = this.interpolationRanges[animationType] || {};
 
     return (
@@ -210,11 +217,13 @@ export default class SpriteSheet extends React.PureComponent {
   };
 
   getFrameCoords = i => {
-    let { columns } = this.props;
+    let { columns, offsetX, offsetY } = this.props;
     let { frameHeight, frameWidth } = this.state;
     let currentColumn = i % columns;
     let xAdjust = -currentColumn * frameWidth;
-    let yAdjust = -((i - currentColumn) / columns) * frameHeight;
+    xAdjust -= offsetX;
+    let yAdjust = -((i - currentColumn) / columns) * frameHeight ;
+    yAdjust -= offsetY;
 
     return {
       x: xAdjust,
