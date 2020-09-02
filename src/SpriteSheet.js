@@ -1,18 +1,11 @@
-import { Animated, Easing, View } from "react-native";
-import PropTypes from "prop-types";
-import React from "react";
-import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
+import { Animated, Easing, View } from 'react-native';
+import PropTypes from 'prop-types';
+import React from 'react';
+import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
-const stylePropType = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.object,
-  PropTypes.array
-]);
+const stylePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]);
 
-const sourcePropType = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.object
-]);
+const sourcePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object]);
 
 export default class SpriteSheet extends React.PureComponent {
   static propTypes = {
@@ -32,7 +25,9 @@ export default class SpriteSheet extends React.PureComponent {
   static defaultPropTypes = {
     columns: 1,
     rows: 1,
-    animations: {}
+    animations: {},
+    offsetY: 0,
+    offsetX: 0,
   };
 
   constructor(props) {
@@ -45,13 +40,23 @@ export default class SpriteSheet extends React.PureComponent {
       translateYInputRange: [0, 1],
       translateYOutputRange: [0, 1],
       translateXInputRange: [0, 1],
-      translateXOutputRange: [0, 1]
+      translateXOutputRange: [0, 1],
     };
 
     this.time = new Animated.Value(0);
     this.interpolationRanges = {};
 
-    let { source, height, width, rows, columns, frameHeight, frameWidth, offsetY = 0, offsetX = 0 } = this.props;
+    let {
+      source,
+      height,
+      width,
+      rows,
+      columns,
+      frameHeight,
+      frameWidth,
+      offsetY,
+      offsetX,
+    } = this.props;
     let image = resolveAssetSource(source);
     let ratio = 1;
     let imageHeight = image.height;
@@ -81,7 +86,7 @@ export default class SpriteSheet extends React.PureComponent {
       frameHeight,
       frameWidth,
       offsetX,
-      offsetY
+      offsetY,
     });
 
     this.generateInterpolationRanges();
@@ -95,13 +100,13 @@ export default class SpriteSheet extends React.PureComponent {
       frameWidth,
       animationType,
       offsetX,
-      offsetY
+      offsetY,
     } = this.state;
     let { viewStyle, imageStyle, source, onLoad } = this.props;
 
     let {
-      translateY = { in: [0,0], out: [offsetY, offsetY] },
-      translateX = { in: [0,0], out: [offsetX, offsetX] }
+      translateY = { in: [0, 0], out: [offsetY, offsetY] },
+      translateX = { in: [0, 0], out: [offsetX, offsetX] },
     } = this.interpolationRanges[animationType] || {};
 
     return (
@@ -111,8 +116,8 @@ export default class SpriteSheet extends React.PureComponent {
           {
             height: frameHeight,
             width: frameWidth,
-            overflow: "hidden"
-          }
+            overflow: 'hidden',
+          },
         ]}
       >
         <Animated.Image
@@ -128,17 +133,17 @@ export default class SpriteSheet extends React.PureComponent {
                 {
                   translateX: this.time.interpolate({
                     inputRange: translateX.in,
-                    outputRange: translateX.out
-                  })
+                    outputRange: translateX.out,
+                  }),
                 },
                 {
                   translateY: this.time.interpolate({
                     inputRange: translateY.in,
-                    outputRange: translateY.out
-                  })
-                }
-              ]
-            }
+                    outputRange: translateY.out,
+                  }),
+                },
+              ],
+            },
           ]}
         />
       </View>
@@ -158,8 +163,8 @@ export default class SpriteSheet extends React.PureComponent {
             ...animations[key].map(i => {
               let { y } = this.getFrameCoords(i);
               return [y, y];
-            })
-          )
+            }),
+          ),
         },
         translateX: {
           in: input,
@@ -167,9 +172,9 @@ export default class SpriteSheet extends React.PureComponent {
             ...animations[key].map(i => {
               let { x } = this.getFrameCoords(i);
               return [x, x];
-            })
-          )
-        }
+            }),
+          ),
+        },
       };
     }
   };
@@ -183,13 +188,7 @@ export default class SpriteSheet extends React.PureComponent {
     this.time.setValue(0);
   };
 
-  play = ({
-    type,
-    fps = 24,
-    loop = false,
-    resetAfterFinish = false,
-    onFinish = () => {}
-  }) => {
+  play = ({ type, fps = 24, loop = false, resetAfterFinish = false, onFinish = () => {} }) => {
     let { animations } = this.props;
     let { length } = animations[type];
 
@@ -198,7 +197,7 @@ export default class SpriteSheet extends React.PureComponent {
         toValue: length,
         duration: (length / fps) * 1000,
         easing: Easing.linear,
-        useNativeDriver: true // Using native animation driver instead of JS
+        useNativeDriver: true, // Using native animation driver instead of JS
       });
 
       this.time.setValue(0);
@@ -222,12 +221,12 @@ export default class SpriteSheet extends React.PureComponent {
     let currentColumn = i % columns;
     let xAdjust = -currentColumn * frameWidth;
     xAdjust -= offsetX;
-    let yAdjust = -((i - currentColumn) / columns) * frameHeight ;
+    let yAdjust = -((i - currentColumn) / columns) * frameHeight;
     yAdjust -= offsetY;
 
     return {
       x: xAdjust,
-      y: yAdjust
+      y: yAdjust,
     };
   };
 }

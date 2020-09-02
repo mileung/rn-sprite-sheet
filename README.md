@@ -30,16 +30,15 @@ A sprite sheet animation library for React Native
   rows={6}
   // height={200} // set either, none, but not both
   // width={200}
-
   // frameHeight={50} // manually set size of your sprite
   // frameWidth={50} // overrides auto calculation of frame size based on height, width, columns, and rows.
-  // offsetX={0} 
-  // offsetY={0} 
+  // offsetX={0}
+  // offsetY={0}
   imageStyle={{ marginTop: -1 }}
   animations={{
     walk: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
     appear: Array.from({ length: 15 }, (v, i) => i + 18),
-    die: Array.from({ length: 21 }, (v, i) => i + 33)
+    die: Array.from({ length: 21 }, (v, i) => i + 33),
   }}
 />;
 // ...
@@ -90,6 +89,6 @@ static defaultPropTypes = {
 };
 ```
 
-### Sprite sheet image specifications 
+### Sprite sheet image specifications
 
-When generating a sprite sheet image to use with rn-sprite-sheet, ensure that the frames are all of the same dimensions, and that the overall image size is exactly the height of all rows and the width of all columns. Depending on the tool you use to generate your sprite sheet image, you may need to crop the source image.    
+When generating a sprite sheet image to use with rn-sprite-sheet, ensure that the frames are all of the same dimensions, and that the overall image size is exactly the height of all rows and the width of all columns. Depending on the tool you use to generate your sprite sheet image, you may need to crop the source image.
