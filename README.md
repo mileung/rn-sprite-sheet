@@ -1,3 +1,5 @@
+🚨 I don't have time to maintain this package. I am open to PRs. 🚨
+
 # rn-sprite-sheet
 
 A sprite sheet animation library for React Native
