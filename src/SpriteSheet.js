@@ -22,7 +22,7 @@ export default class SpriteSheet extends React.PureComponent {
     frameHeight: PropTypes.number,
   };
 
-  static defaultPropTypes = {
+  static defaultProps = {
     columns: 1,
     rows: 1,
     animations: {},
