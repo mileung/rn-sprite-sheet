@@ -1,11 +1,24 @@
-import { Animated, Easing, View } from 'react-native';
+import { Animated, Easing, Image as NativeImage, Platform, View } from 'react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
-import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
 const stylePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object, PropTypes.array]);
 
 const sourcePropType = PropTypes.oneOfType([PropTypes.number, PropTypes.object]);
+
+function resolveAssetSource(source) {
+  if (Platform.OS === 'web') {
+    // eslint-disable-next-line no-undef
+    const img = new Image();
+    img.src = source;
+    return {
+      width: img.width,
+      height: img.height,
+    };
+  }
+
+  return NativeImage.resolveAssetSource(source);
+}
 
 export default class SpriteSheet extends React.PureComponent {
   static propTypes = {
